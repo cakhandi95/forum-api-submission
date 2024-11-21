@@ -2,32 +2,34 @@ class ThreadDetail {
   constructor(data) {
     this._validateData(data);
 
-    const { id, title, content, createdAt, author, replies } = data;
+    const { id, title, body, date, username, comments } = data;
 
     this.id = id;
     this.title = title;
-    this.content = content;
-    this.createdAt = createdAt;
-    this.author = author;
-    this.replies = replies;
+    this.body = body;
+    this.date = date;
+    this.username = username;
+    this.comments = comments;
   }
 
   _validateData(data) {
-    const { id, title, content, createdAt, author, replies } = data;
+    const { id, title, body, date, username, comments } = data;
 
-    if (!id || !title || !content || !createdAt || !author || !replies) {
-      throw new Error("THREAD_INFORMATION.MISSING_REQUIRED_PROPERTIES");
+    console.log(`_validateData: `, data);
+
+    if (!id || !title || !body || !date || !username || !comments) {
+      throw new Error("DETAILED_THREAD.NOT_CONTAIN_NEEDED_PROPERTY");
     }
 
     if (
       typeof id !== "string" ||
       typeof title !== "string" ||
-      typeof content !== "string" ||
-      typeof createdAt !== "string" ||
-      typeof author !== "string" ||
-      !Array.isArray(replies)
+      typeof body !== "string" ||
+      typeof date !== "string" ||
+      typeof username !== "string" ||
+      !Array.isArray(comments)
     ) {
-      throw new Error("THREAD_INFORMATION.INVALID_DATA_TYPE");
+      throw new Error("DETAILED_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION");
     }
   }
 }

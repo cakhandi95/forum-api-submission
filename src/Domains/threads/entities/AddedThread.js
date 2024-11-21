@@ -1,6 +1,6 @@
 class AddedThread {
   constructor(data) {
-    this._verifyPayload(data);
+    this._validateData(data);
 
     const { id, title, owner } = data;
 

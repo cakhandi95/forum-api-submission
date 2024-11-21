@@ -19,7 +19,7 @@ describe("CommentRepositoryPostgres", () => {
     await pool.end();
   });
 
-  describe("checkCommentAvailability function", () => {
+  describe("isCommentAvailable function", () => {
     it("should throw NotFoundError when comment not available", async () => {
       // Arrange
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
@@ -40,7 +40,10 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
       await CommentsTableTestHelper.insertComment({
         id: commentId,
         thread: threadId,
@@ -63,7 +66,10 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
       await CommentsTableTestHelper.insertComment({
         id: commentId,
         thread: threadId,
@@ -90,7 +96,10 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
       await CommentsTableTestHelper.insertComment({
         id: commentId,
         thread: threadId,
@@ -114,7 +123,10 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
       await CommentsTableTestHelper.insertComment({
         id: commentId,
         thread: threadId,
@@ -136,7 +148,10 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
       await CommentsTableTestHelper.insertComment({
         id: commentId,
         thread: threadId,
@@ -155,7 +170,7 @@ describe("CommentRepositoryPostgres", () => {
   describe("addComment function", () => {
     beforeEach(async () => {
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.addThread({
+      await ThreadsTableTestHelper.createThread({
         id: "thread-123",
         owner: "user-123",
       });
@@ -225,7 +240,10 @@ describe("CommentRepositoryPostgres", () => {
         id: otherUserId,
         username: "johndoe",
       });
-      await ThreadsTableTestHelper.addThread({ id: threadId, owner: userId });
+      await ThreadsTableTestHelper.createThread({
+        id: threadId,
+        owner: userId,
+      });
 
       await CommentsTableTestHelper.insertComment({
         id: "comment-new",
@@ -266,7 +284,7 @@ describe("CommentRepositoryPostgres", () => {
     it("should soft delete comment and update is_delete field", async () => {
       // Arrange
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.addThread({
+      await ThreadsTableTestHelper.createThread({
         id: "thread-123",
         owner: "user-123",
       });

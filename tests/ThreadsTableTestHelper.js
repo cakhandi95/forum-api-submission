@@ -3,7 +3,7 @@ const pool = require("../src/Infrastructures/database/postgres/pool");
 const { nanoId } = require("nanoid");
 
 const ThreadsTableTestHelper = {
-  async addThread({
+  async createThread({
     id = `thread-123`,
     title = "A New Thread",
     body = "Thread body",

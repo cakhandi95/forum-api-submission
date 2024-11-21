@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 class ThreadRepository {
-  async createThread(userId, newThread) {
+  async createThread(userId, createdThread) {
     throw new Error("THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
 
@@ -8,8 +8,10 @@ class ThreadRepository {
     throw new Error("THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
 
-  async verifyThreadExists(id) {
-    throw new Error("THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  async verifyThreadExists(threadId) {
+    throw new Error(
+      "THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED_VERIFY_THREAD_EXISTS"
+    );
   }
 }
 
