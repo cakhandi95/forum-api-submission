@@ -89,7 +89,7 @@ describe("ThreadRepositoryPostgres", () => {
         fakeIdGenerator
       );
 
-      console.log("step1", createdThread);
+      ///console.log("step1", createdThread);
 
       // Action
       const addedThread = await threadRepositoryPostgres.createThread(
@@ -97,8 +97,8 @@ describe("ThreadRepositoryPostgres", () => {
         createdThread
       );
 
-      console.log("step2", createdThread);
-      console.log("step2-addthread", addedThread);
+      ///console.log("step2", createdThread);
+      ///console.log("step2-addthread", addedThread);
 
       // Assert
       expect(addedThread).toStrictEqual(

@@ -10,15 +10,15 @@ class ThreadRepositoryPostgres extends ThreadRepository {
   }
 
   async createThread(userId, createdThread) {
-    console.log("addThread-postgres", createdThread);
+    ///console.log("addThread-postgres", createdThread);
 
     const { title, body } = createdThread;
     const id = `thread-${this._idGenerator()}`;
     const date = new Date().toISOString();
 
-    console.log("addThread-postgres2", createdThread);
-    console.log("addThread-postgres2-id", id);
-    console.log("addThread-postgres2-date", date);
+    ///console.log("addThread-postgres2", createdThread);
+    ///console.log("addThread-postgres2-id", id);
+    ///console.log("addThread-postgres2-date", date);
 
     const query = {
       text: "INSERT INTO threads VALUES($1, $2, $3, $4, $5) RETURNING id, title, owner",

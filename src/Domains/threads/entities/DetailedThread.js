@@ -15,7 +15,7 @@ class ThreadDetail {
   _validateData(data) {
     const { id, title, body, date, username, comments } = data;
 
-    console.log(`_validateData: `, data);
+    ///console.log(`_validateData: `, data);
 
     if (!id || !title || !body || !date || !username || !comments) {
       throw new Error("DETAILED_THREAD.NOT_CONTAIN_NEEDED_PROPERTY");
