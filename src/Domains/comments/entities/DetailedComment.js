@@ -7,7 +7,7 @@ class DetailedComment {
 
     this.id = id;
     this.username = username;
-    this.content = is_delete ? "**comment deleted**" : content;
+    this.content = is_delete ? "**komentar telah dihapus**" : content;
     this.date = date;
     this.replies = replies;
   }

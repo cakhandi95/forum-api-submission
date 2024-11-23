@@ -57,7 +57,7 @@ describe("DetailedComment entity tests", () => {
     expect(detailedComment.replies).toEqual(data.replies);
   });
 
-  it('should replace content with "**comment deleted**" if is_delete is true', () => {
+  it('should replace content with "**komentar telah dihapus**" if is_delete is true', () => {
     // Setup
     const data = {
       id: "comment-1",
@@ -73,6 +73,6 @@ describe("DetailedComment entity tests", () => {
     const detailedComment = new DetailedComment(data);
 
     // Verification
-    expect(detailedComment.content).toBe("**comment deleted**");
+    expect(detailedComment.content).toBe("**komentar telah dihapus**");
   });
 });

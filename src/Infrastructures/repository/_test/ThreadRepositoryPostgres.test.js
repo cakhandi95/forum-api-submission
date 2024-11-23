@@ -53,7 +53,7 @@ describe("ThreadRepositoryPostgres", () => {
 
     it("should persist new thread", async () => {
       // Arrange
-      const createdThread = new CreatedThread({
+      const createdThread = new createThread({
         title: "A thread", // Berikan nilai title yang valid
         body: "A long thread", // Berikan nilai body yang valid
       });
@@ -78,7 +78,7 @@ describe("ThreadRepositoryPostgres", () => {
 
     it("should return added thread correctly", async () => {
       // Arrange
-      const createdThread = new CreatedThread({
+      const createdThread = new createThread({
         title: "A thread", // Pastikan title valid
         body: "A long thread", // Pastikan body valid
       });

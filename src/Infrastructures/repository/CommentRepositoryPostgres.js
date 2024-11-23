@@ -1,8 +1,7 @@
 const NotFoundError = require("../../Commons/exceptions/NotFoundError");
-const AuthorizationError = require("../../Commons/exceptions/AuthenticationError");
+const AuthorizationError = require("../../Commons/exceptions/AuthorizationError");
 const AddedComment = require("../../Domains/comments/entities/AddedComment");
 const CommentRepository = require("../../Domains/comments/CommentRepository");
-const AuthenticationError = require("../../Commons/exceptions/AuthenticationError");
 
 class CommentRepositoryPostgres extends CommentRepository {
   constructor(pool, idGenerator) {
@@ -77,7 +76,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     const comment = result.rows[0];
 
     if (comment.owner !== owner) {
-      throw new AuthenticationError("akses dilarang");
+      throw new AuthorizationError("akses dilarang");
     }
   }
 }

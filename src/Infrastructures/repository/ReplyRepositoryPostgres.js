@@ -1,5 +1,5 @@
 const NotFoundError = require("../../Commons/exceptions/NotFoundError");
-const AuthorizationError = require("../../Commons/exceptions/AuthenticationError");
+const AuthorizationError = require("../../Commons/exceptions/AuthorizationError");
 const AddedReply = require("../../Domains/replies/entities/AddedReply");
 const ReplyRepository = require("../../Domains/replies/ReplyRepository");
 

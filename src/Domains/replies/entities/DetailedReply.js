@@ -6,7 +6,7 @@ class DetailedReply {
 
     this.id = id;
     this.username = username;
-    this.content = isDeleted ? "**reply has been removed**" : content;
+    this.content = isDeleted ? "**balasan telah dihapus**" : content;
     this.date = date;
   }
 

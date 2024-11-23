@@ -3,7 +3,7 @@ const ClientError = require('../ClientError');
 
 describe('AuthenticationError', () => {
   it('should create AuthenticationError correctly', () => {
-    const authenticationError = new AuthenticationError('authentication error!');
+    const authenticationError = new 'authentication error!');
 
     expect(authenticationError).toBeInstanceOf(AuthenticationError);
     expect(authenticationError).toBeInstanceOf(ClientError);

@@ -67,7 +67,7 @@ describe("DetailedReply entities", () => {
     expect(detailedReply).toBeInstanceOf(DetailedReply);
     expect(detailedReply.id).toEqual(data.id);
     expect(detailedReply.username).toEqual(data.username);
-    expect(detailedReply.content).toEqual("a sample reply");
+    expect(replyDetail.content).toEqual("**balasan telah dihapus**");
     expect(detailedReply.date).toEqual(data.date);
   });
 });
