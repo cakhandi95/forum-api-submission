@@ -43,6 +43,11 @@ describe("/threads endpoint", () => {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
+      console.log(
+        `should response 201 and added thread : ${response.statusCode}`
+      );
+      console.log(`should response 201 and added thread : ${accessToken}`);
+
       // Assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(201);
@@ -132,7 +137,10 @@ describe("/threads endpoint", () => {
       // add user
       await UsersTableTestHelper.addUser({ id: "user-123" });
       // add thread
-      await ThreadsTableTestHelper.addThread({ ...thread, owner: "user-123" });
+      await ThreadsTableTestHelper.createdThread({
+        ...thread,
+        owner: "user-123",
+      });
 
       // Action
       const response = await server.inject({

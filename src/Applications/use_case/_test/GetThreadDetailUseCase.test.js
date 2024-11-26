@@ -1,11 +1,10 @@
 const GetThreadDetailUseCase = require("../GetThreadDetailUseCase");
-const ThreadDetail = require("../../../Domains/threads/entities/ThreadDetail");
+const DetailedThread = require("../../../Domains/threads/entities/DetailedThread");
 const ThreadRepository = require("../../../Domains/threads/ThreadRepository");
 const CommentRepository = require("../../../Domains/comments/CommentRepository");
 const ReplyRepository = require("../../../Domains/replies/ReplyRepository");
-const CommentLikeRepository = require("../../../Domains/likes/CommentLikeRepository");
-const CommentDetail = require("../../../Domains/comments/entities/CommentDetail");
-const ReplyDetail = require("../../../Domains/replies/entities/ReplyDetail");
+const DetailedComment = require("../../../Domains/comments/entities/DetailedComment");
+const DetailedReply = require("../../../Domains/replies/entities/DetailedReply");
 
 describe("GetThreadDetailUseCase", () => {
   it("should orchestrating the get thread detail action correctly", async () => {
@@ -62,52 +61,20 @@ describe("GetThreadDetailUseCase", () => {
       },
     ];
 
-    const mockCommentsLikes = [
-      {
-        id: "like-1",
-        comment: "comment-1",
-        owner: "johndoe",
-      },
-      {
-        id: "like-2",
-        comment: "comment-1",
-        owner: "foobar",
-      },
-      {
-        id: "like-3",
-        comment: "comment-2",
-        owner: "johndoe",
-      },
-      {
-        id: "like-4",
-        comment: "comment-2",
-        owner: "johndoe",
-      },
-      {
-        id: "like-5",
-        comment: "comment-2",
-        owner: "johndoe",
-      },
-    ];
-
     /** creating dependency of use case */
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockReplyRepository = new ReplyRepository();
-    const mockCommentLikeRepository = new CommentLikeRepository();
 
     /** mocking needed function */
-    mockThreadRepository.getThreadById = jest.fn(() =>
+    mockThreadRepository.fetchThreadById = jest.fn(() =>
       Promise.resolve(mockThreadDetail)
     );
-    mockCommentRepository.getCommentsByThreadId = jest.fn(() =>
+    mockCommentRepository.fetchCommentsByThread = jest.fn(() =>
       Promise.resolve(mockComments)
     );
-    mockReplyRepository.getRepliesByThreadId = jest.fn(() =>
+    mockReplyRepository.retrieveRepliesByThreadId = jest.fn(() =>
       Promise.resolve(mockReplies)
-    );
-    mockCommentLikeRepository.getLikesByThreadId = jest.fn(() =>
-      Promise.resolve(mockCommentsLikes)
     );
 
     /** creating use case instance */
@@ -115,7 +82,6 @@ describe("GetThreadDetailUseCase", () => {
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
       replyRepository: mockReplyRepository,
-      commentLikeRepository: mockCommentLikeRepository,
     });
 
     // Action
@@ -123,35 +89,35 @@ describe("GetThreadDetailUseCase", () => {
 
     // Assert
     expect(threadDetail).toStrictEqual(
-      new ThreadDetail({
+      new DetailedThread({
         id: "thread-123",
         title: "A thread",
         body: "A long thread",
         date: "2023-09-07T00:00:00.000Z",
         username: "foobar",
         comments: [
-          new CommentDetail({
+          new DetailedComment({
             id: "comment-1",
             username: "johndoe",
             date: "2023-09-07T00:00:00.000Z",
             content: "a comment",
             replies: [
-              new ReplyDetail({
+              new DetailedReply({
                 id: "reply-1",
                 username: "johndoe",
                 content: "a reply",
                 date: "2023-09-08T00:00:00.000Z",
               }),
-              new ReplyDetail({
+              new DetailedReply({
                 id: "reply-2",
                 username: "foobar",
                 date: "2023-09-09T00:00:00.000Z",
-                content: "**balasan telah dihapus**",
+                content: "a deleted reply",
               }),
             ],
             likeCount: 2,
           }),
-          new CommentDetail({
+          new DetailedComment({
             id: "comment-2",
             username: "foobar",
             date: "2023-09-08T00:00:00.000Z",
@@ -162,16 +128,12 @@ describe("GetThreadDetailUseCase", () => {
         ],
       })
     );
-    expect(mockThreadRepository.getThreadById).toBeCalledWith("thread-123");
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
+    expect(mockThreadRepository.fetchThreadById).toBeCalledWith("thread-123");
+    expect(mockCommentRepository.fetchCommentsByThread).toBeCalledWith(
       "thread-123"
     );
-    expect(mockReplyRepository.getRepliesByThreadId).toBeCalledTimes(1);
-    expect(mockReplyRepository.getRepliesByThreadId).toBeCalledWith(
-      "thread-123"
-    );
-    expect(mockCommentLikeRepository.getLikesByThreadId).toBeCalledTimes(1);
-    expect(mockCommentLikeRepository.getLikesByThreadId).toBeCalledWith(
+    expect(mockReplyRepository.retrieveRepliesByThreadId).toBeCalledTimes(1);
+    expect(mockReplyRepository.retrieveRepliesByThreadId).toBeCalledWith(
       "thread-123"
     );
   });

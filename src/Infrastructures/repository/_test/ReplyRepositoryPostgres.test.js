@@ -3,7 +3,7 @@ const ThreadsTableTestHelper = require("../../../../tests/ThreadsTableTestHelper
 const CommentsTableTestHelper = require("../../../../tests/CommentsTableTestHelper");
 const ReplyTableTestHelper = require("../../../../tests/ReplyTableTestHelper");
 const NotFoundError = require("../../../Commons/exceptions/NotFoundError");
-const AuthenticationError = require("../../../Commons/exceptions/AuthenticationError");
+const AuthorizationError = require("../../../Commons/exceptions/AuthorizationError");
 const CreatedReply = require("../../../Domains/replies/entities/CreatedReply");
 const AddedReply = require("../../../Domains/replies/entities/AddedReply");
 const pool = require("../../database/postgres/pool");
@@ -40,7 +40,7 @@ describe("ReplyRepositoryPostgres", () => {
       const replyId = "reply-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -72,7 +72,7 @@ describe("ReplyRepositoryPostgres", () => {
       const replyId = "reply-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -105,7 +105,7 @@ describe("ReplyRepositoryPostgres", () => {
       const replyId = "reply-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -138,7 +138,7 @@ describe("ReplyRepositoryPostgres", () => {
       const replyId = "reply-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -158,7 +158,7 @@ describe("ReplyRepositoryPostgres", () => {
       // Action & Assert
       await expect(
         replyRepositoryPostgres.confirmReplyOwnership(replyId, "user-other")
-      ).rejects.toThrowError(AuthenticationError);
+      ).rejects.toThrowError(AuthorizationError);
     });
 
     it("should not throw AuthorizationError when reply owner authorized", async () => {
@@ -169,7 +169,7 @@ describe("ReplyRepositoryPostgres", () => {
       const replyId = "reply-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -189,14 +189,14 @@ describe("ReplyRepositoryPostgres", () => {
       // Action & Assert
       await expect(
         replyRepositoryPostgres.confirmReplyOwnership(replyId, userId)
-      ).resolves.not.toThrowError(AuthenticationError);
+      ).resolves.not.toThrowError(AuthorizationError);
     });
   });
 
   describe("addReply function", () => {
     beforeEach(async () => {
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: "thread-123",
         owner: "user-123",
       });
@@ -270,7 +270,7 @@ describe("ReplyRepositoryPostgres", () => {
         id: otherUserId,
         username: "johndoe",
       });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -330,7 +330,7 @@ describe("ReplyRepositoryPostgres", () => {
         id: otherUserId,
         username: "johndoe",
       });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -397,7 +397,7 @@ describe("ReplyRepositoryPostgres", () => {
     it("should soft delete reply and update is_delete field", async () => {
       // Arrange
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: "thread-123",
         owner: "user-123",
       });

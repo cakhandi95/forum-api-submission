@@ -5,11 +5,7 @@ class ServerTestHelper {
   }
 
   async getAccessTokenAndUserId(
-    payload = {
-      username: "foobar",
-      password: "secret",
-      fullname: "Foo Bar",
-    }
+    payload = { username: "foobar", password: "secret", fullname: "Foo Bar" }
   ) {
     // add user
     const registerResponse = await this._server.inject({

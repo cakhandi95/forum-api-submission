@@ -9,8 +9,6 @@ class CreatedThread {
   _validateData(data) {
     const { title, body } = data;
 
-    console.log("Input to CreatedThread:", { title, body });
-
     if (!title || !body) {
       throw new Error("CREATED_THREAD.MISSING_REQUIRED_FIELDS");
     }

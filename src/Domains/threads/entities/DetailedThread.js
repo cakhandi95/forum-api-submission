@@ -1,4 +1,4 @@
-class ThreadDetail {
+class DetailedThread {
   constructor(data) {
     this._validateData(data);
 
@@ -34,4 +34,4 @@ class ThreadDetail {
   }
 }
 
-module.exports = ThreadDetail;
+module.exports = DetailedThread;

@@ -33,7 +33,7 @@ describe("ThreadRepositoryPostgres", () => {
       const threadId = "thread-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -53,7 +53,7 @@ describe("ThreadRepositoryPostgres", () => {
 
     it("should persist new thread", async () => {
       // Arrange
-      const createdThread = new createThread({
+      const createdThread = new CreatedThread({
         title: "A thread", // Berikan nilai title yang valid
         body: "A long thread", // Berikan nilai body yang valid
       });
@@ -65,7 +65,7 @@ describe("ThreadRepositoryPostgres", () => {
       );
 
       // Action
-      await threadRepositoryPostgres.createThread("user-123", createdThread);
+      await threadRepositoryPostgres.createdThread("user-123", createdThread);
 
       // Assert
       const threads = await ThreadsTableTestHelper.findThreadsById(
@@ -78,7 +78,7 @@ describe("ThreadRepositoryPostgres", () => {
 
     it("should return added thread correctly", async () => {
       // Arrange
-      const createdThread = new createThread({
+      const createdThread = new CreatedThread({
         title: "A thread", // Pastikan title valid
         body: "A long thread", // Pastikan body valid
       });
@@ -92,7 +92,7 @@ describe("ThreadRepositoryPostgres", () => {
       ///console.log("step1", createdThread);
 
       // Action
-      const addedThread = await threadRepositoryPostgres.createThread(
+      const addedThread = await threadRepositoryPostgres.createdThread(
         "user-123",
         createdThread
       );
@@ -129,7 +129,7 @@ describe("ThreadRepositoryPostgres", () => {
       const date = new Date().toISOString();
 
       await UsersTableTestHelper.addUser({ id: userId, username: "foobar" });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         title: "A thread",
         body: "A long thread",

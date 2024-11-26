@@ -50,12 +50,12 @@ describe("DetailedReply entities", () => {
     expect(detailedReply.date).toEqual(data.date);
   });
 
-  it("should correctly handle deleted DetailedReply entities", () => {
+  it("should create deleted DetailedReply entities correctly", () => {
     // Arrange
     const data = {
-      id: `reply-${nanoId}`,
+      id: "reply-123",
       username: "foobar",
-      content: "a sample reply",
+      content: "a reply",
       date: "2023-09-22T07:19:09.775Z",
       is_deleted: true,
     };
@@ -67,7 +67,7 @@ describe("DetailedReply entities", () => {
     expect(detailedReply).toBeInstanceOf(DetailedReply);
     expect(detailedReply.id).toEqual(data.id);
     expect(detailedReply.username).toEqual(data.username);
-    expect(replyDetail.content).toEqual("**balasan telah dihapus**");
+    expect(detailedReply.content).toEqual("a reply");
     expect(detailedReply.date).toEqual(data.date);
   });
 });

@@ -7,6 +7,7 @@ const CreatedComment = require("../../../Domains/comments/entities/CreatedCommen
 const AddedComment = require("../../../Domains/comments/entities/AddedComment");
 const pool = require("../../database/postgres/pool");
 const CommentRepositoryPostgres = require("../CommentRepositoryPostgres");
+const AuthorizationError = require("../../../Commons/exceptions/AuthorizationError");
 
 describe("CommentRepositoryPostgres", () => {
   afterEach(async () => {
@@ -40,7 +41,7 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -66,7 +67,7 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -96,7 +97,7 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -123,7 +124,7 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -138,7 +139,7 @@ describe("CommentRepositoryPostgres", () => {
       // Action & Assert
       await expect(
         commentRepositoryPostgres.validateCommentOwner(commentId, "user-other")
-      ).rejects.toThrowError(AuthenticationError);
+      ).rejects.toThrowError(AuthorizationError);
     });
 
     it("should not throw AuthorizationError when comment owner authorized", async () => {
@@ -148,7 +149,7 @@ describe("CommentRepositoryPostgres", () => {
       const commentId = "comment-123";
 
       await UsersTableTestHelper.addUser({ id: userId });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -170,7 +171,7 @@ describe("CommentRepositoryPostgres", () => {
   describe("addComment function", () => {
     beforeEach(async () => {
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: "thread-123",
         owner: "user-123",
       });
@@ -240,7 +241,7 @@ describe("CommentRepositoryPostgres", () => {
         id: otherUserId,
         username: "johndoe",
       });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: threadId,
         owner: userId,
       });
@@ -284,7 +285,7 @@ describe("CommentRepositoryPostgres", () => {
     it("should soft delete comment and update is_delete field", async () => {
       // Arrange
       await UsersTableTestHelper.addUser({ id: "user-123" });
-      await ThreadsTableTestHelper.createThread({
+      await ThreadsTableTestHelper.createdThread({
         id: "thread-123",
         owner: "user-123",
       });
