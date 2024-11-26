@@ -1,73 +1,78 @@
-const DetailedReply = require("../DetailedReply");
-const { nanoId } = require("nanoid");
+const DetailedReply = require('../DetailedReply');
 
-describe("DetailedReply entities", () => {
-  it("should throw an error if required properties are missing", () => {
+describe('DetailedReply', () => {
+  it('should create an instance correctly when all required fields are provided', () => {
     // Arrange
     const data = {
-      id: `reply-${nanoId}`,
-      username: "foobar",
+      id: 'reply-123',
+      username: 'user1',
+      content: 'This is a reply',
+      date: '2023-10-10',
+      isDeleted: false,
     };
 
-    // Action & Assert
-    expect(() => new DetailedReply(data)).toThrowError(
-      "DETAILED_REPLY.MISSING_REQUIRED_FIELDS"
-    );
-  });
-
-  it("should throw an error if the data type is incorrect", () => {
-    // Arrange
-    const data = {
-      id: `reply-${nanoId}`,
-      username: "foobar",
-      content: "a sample reply",
-      date: 321,
-    };
-
-    // Action & Assert
-    expect(() => new DetailedReply(data)).toThrowError(
-      "DETAILED_REPLY.INVALID_DATA_TYPE"
-    );
-  });
-
-  it("should correctly create an instance of DetailedReply", () => {
-    // Arrange
-    const data = {
-      id: `reply-${nanoId}`,
-      username: "foobar",
-      content: "a sample reply",
-      date: "2023-09-22T07:19:09.775Z",
-    };
-
-    // Action
+    // Act
     const detailedReply = new DetailedReply(data);
 
     // Assert
-    expect(detailedReply).toBeInstanceOf(DetailedReply);
-    expect(detailedReply.id).toEqual(data.id);
-    expect(detailedReply.username).toEqual(data.username);
-    expect(detailedReply.content).toEqual(data.content);
-    expect(detailedReply.date).toEqual(data.date);
+    expect(detailedReply.id).toBe(data.id);
+    expect(detailedReply.username).toBe(data.username);
+    expect(detailedReply.content).toBe(data.content);
+    expect(detailedReply.date).toBe(data.date);
   });
 
-  it("should create deleted DetailedReply entities correctly", () => {
+  it('should replace content with "**balasan telah dihapus**" if isDeleted is true', () => {
     // Arrange
     const data = {
-      id: "reply-123",
-      username: "foobar",
-      content: "a reply",
-      date: "2023-09-22T07:19:09.775Z",
-      is_deleted: true,
+      id: 'reply-123',
+      username: 'user1',
+      content: 'This is a reply',
+      date: '2023-10-10',
+      isDeleted: true,
     };
 
-    // Action
+    // Act
     const detailedReply = new DetailedReply(data);
 
     // Assert
-    expect(detailedReply).toBeInstanceOf(DetailedReply);
-    expect(detailedReply.id).toEqual(data.id);
-    expect(detailedReply.username).toEqual(data.username);
-    expect(detailedReply.content).toEqual("a reply");
-    expect(detailedReply.date).toEqual(data.date);
+    expect(detailedReply.content).toBe("**balasan telah dihapus**");
+  });
+
+  it('should throw error when required fields are missing', () => {
+    // Arrange
+    const data = {
+      id: 'reply-123',
+      username: 'user1',
+      // Missing 'content' and 'date'
+    };
+
+    // Act & Assert
+    expect(() => new DetailedReply(data)).toThrow("DETAILED_REPLY.MISSING_REQUIRED_FIELDS");
+  });
+
+  it('should throw error when fields are of invalid data types', () => {
+    // Arrange
+    const data = {
+      id: 123,  // invalid type, should be string
+      username: 'user1',
+      content: 'This is a reply',
+      date: '2023-10-10',
+    };
+
+    // Act & Assert
+    expect(() => new DetailedReply(data)).toThrow("DETAILED_REPLY.INVALID_DATA_TYPE");
+  });
+
+  it('should throw error when date is not a string or Date object', () => {
+    // Arrange
+    const data = {
+      id: 'reply-123',
+      username: 'user1',
+      content: 'This is a reply',
+      date: 12345, // invalid type, should be string or Date
+    };
+
+    // Act & Assert
+    expect(() => new DetailedReply(data)).toThrow("DETAILED_REPLY.INVALID_DATA_TYPE");
   });
 });
