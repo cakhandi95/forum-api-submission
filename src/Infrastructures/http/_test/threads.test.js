@@ -43,10 +43,10 @@ describe("/threads endpoint", () => {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
-      console.log(
-        `should response 201 and added thread : ${response.statusCode}`
-      );
-      console.log(`should response 201 and added thread : ${accessToken}`);
+      // console.log(
+      //   `should response 201 and added thread : ${response.statusCode}`
+      // );
+      // console.log(`should response 201 and added thread : ${accessToken}`);
 
       // Assert
       const responseJson = JSON.parse(response.payload);

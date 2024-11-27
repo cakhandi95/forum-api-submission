@@ -13,7 +13,7 @@ class ThreadsHandler {
     ///console.log(`postThreadHandler_usecase: ${addThreadUseCase}`);
     ///console.log(`credentpostThreadHandler_payload: ${request.payload}`);
     const addedThread = await addThreadUseCase.execute(userId, request.payload);
-    console.log(`addedThread_postThreadHandler: ${addedThread}`);
+    //console.log(`addedThread_postThreadHandler: ${addedThread}`);
 
     const response = h.response({
       status: "success",

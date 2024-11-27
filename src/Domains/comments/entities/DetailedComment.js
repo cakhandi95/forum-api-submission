@@ -13,7 +13,8 @@ class DetailedComment {
   }
 
   _validateData(data) {
-    const { id, username, content, date, replies } = data;
+    const { id, username, content, date, replies, is_delete } = data;
+
     if (!id || !username || !content || !date) {
       throw new Error("DETAILED_COMMENT.MISSING_REQUIRED_FIELDS");
     }
@@ -23,10 +24,13 @@ class DetailedComment {
       typeof username !== "string" ||
       typeof content !== "string" ||
       (typeof date !== "string" && typeof date !== "object") ||
-      !Array.isArray(replies)
+      !Array.isArray(replies) ||
+      (typeof is_delete !== "boolean" && is_delete !== undefined) // Tambahkan validasi is_delete
     ) {
+      console.log(`DetailedComment_id: ${typeof id !== "string"}`);
       throw new Error("DETAILED_COMMENT.INVALID_DATA_TYPE");
     }
   }
 }
+
 module.exports = DetailedComment;

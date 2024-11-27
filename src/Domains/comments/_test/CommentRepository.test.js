@@ -21,5 +21,8 @@ describe("CommentRepository interface", () => {
     await expect(
       commentRepository.isCommentAvailable("", "")
     ).rejects.toThrowError("COMMENT_REPOSITORY.UNIMPLEMENTED_METHOD");
+    await expect(
+      commentRepository.validateCommentOwner("", "")
+    ).rejects.toThrowError("COMMENT_REPOSITORY.UNIMPLEMENTED_METHOD");
   });
 });

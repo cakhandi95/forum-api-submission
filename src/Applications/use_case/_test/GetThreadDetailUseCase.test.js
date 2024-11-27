@@ -37,27 +37,30 @@ describe("GetThreadDetailUseCase", () => {
     const mockReplies = [
       {
         id: "reply-1",
-        username: "johndoe",
-        date: "2023-09-08T00:00:00.000Z",
         content: "a reply",
+        date: "2023-09-08T00:00:00.000Z",
         comment: "comment-1",
+        owner: "johndoe",
         is_delete: false,
+        username: "johndoe",
       },
       {
         id: "reply-2",
-        username: "foobar",
-        date: "2023-09-09T00:00:00.000Z",
         content: "a deleted reply",
+        date: "2023-09-09T00:00:00.000Z",
         comment: "comment-1",
+        owner: "foobar",
         is_delete: true,
+        username: "foobar",
       },
       {
         id: "reply-3",
-        username: "foobar",
-        date: "2023-09-09T00:00:00.000Z",
         content: "a reply",
+        date: "2023-09-09T00:00:00.000Z",
         comment: "comment-2",
+        owner: "foobar",
         is_delete: false,
+        username: "foobar",
       },
     ];
 

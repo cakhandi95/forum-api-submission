@@ -317,7 +317,7 @@ describe("ReplyRepositoryPostgres", () => {
     });
   });
 
-  describe("getRepliesByThreadId function", () => {
+  describe("getRepliesByCommentId function", () => {
     it("should return comment replies correctly", async () => {
       // Arrange
       const userId = "user-123";
@@ -341,14 +341,6 @@ describe("ReplyRepositoryPostgres", () => {
         thread: threadId,
         owner: userId,
       });
-      await CommentsTableTestHelper.insertComment({
-        id: "comment-2",
-        content: "A comment",
-        date: "2023-09-09",
-        thread: threadId,
-        owner: userId,
-        isDelete: true,
-      });
 
       await ReplyTableTestHelper.createReply({
         id: "reply-new",
@@ -356,6 +348,7 @@ describe("ReplyRepositoryPostgres", () => {
         date: "2023-09-11",
         comment: commentId,
         owner: userId,
+        is_delete: false,
       });
       await ReplyTableTestHelper.createReply({
         id: "reply-old",
@@ -363,33 +356,52 @@ describe("ReplyRepositoryPostgres", () => {
         date: "2023-09-10",
         comment: commentId,
         owner: otherUserId,
-      });
-      await ReplyTableTestHelper.createReply({
-        id: "reply-old-2",
-        content: "An old reply",
-        date: "2023-09-09",
-        comment: "comment-2",
-        owner: otherUserId,
+        is_delete: false,
       });
 
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
 
       // Action
-      const replies = await replyRepositoryPostgres.retrieveRepliesByThreadId(
-        threadId
+      const replies = await replyRepositoryPostgres.fetchRepliesByCommentId(
+        commentId
       );
 
+      // Normalize received data
+      const normalizedReplies = replies.map((reply) => ({
+        id: reply.id,
+        username: reply.username,
+        content: reply.content,
+        date: reply.date.toISOString().split("T")[0], // Format date to string
+      }));
+
       // Assert
-      expect(replies).toHaveLength(2);
-      expect(replies[0].id).toBe("reply-old"); // older reply first
-      expect(replies[1].id).toBe("reply-new");
-      expect(replies[0].username).toBe("johndoe");
-      expect(replies[1].username).toBe("foobar");
-      expect(replies[0].content).toBe("An old reply");
-      expect(replies[1].content).toBe("A new reply");
-      expect(replies[0].date).toBeTruthy();
-      expect(replies[1].date).toBeTruthy();
-      expect(replies[2]).toBeUndefined(); // reply in deleted comment
+      expect(normalizedReplies).toHaveLength(2);
+
+      // Assert detail for first reply
+      expect(replies[0]).toStrictEqual({
+        id: "reply-old",
+        content: "An old reply",
+        date: new Date("2023-09-09T17:00:00.000Z"), // Correct date format
+        username: "johndoe",
+        is_delete: false,
+      });
+
+      // Assert detail for second reply
+      expect(replies[1]).toStrictEqual({
+        id: "reply-new",
+        content: "A new reply",
+        date: new Date("2023-09-10T17:00:00.000Z"), // Correct date format
+        username: "foobar",
+        is_delete: false,
+      });
+
+      // Assert detail for normalized second reply
+      expect(normalizedReplies[1]).toStrictEqual({
+        id: "reply-new",
+        username: "foobar",
+        content: "A new reply",
+        date: "2023-09-10", // Normalized date
+      });
     });
   });
 

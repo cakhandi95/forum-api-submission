@@ -75,4 +75,40 @@ describe("DetailedComment entity tests", () => {
     // Verification
     expect(detailedComment.content).toBe("**komentar telah dihapus**");
   });
+
+  it("should throw an error when id is not a string", () => {
+    // Mock console.log to track logs
+    console.log = jest.fn();
+
+    // Setup
+    const data = {
+      id: 123, // invalid type
+      username: "user123",
+      content: "This is a comment",
+      date: "2024-11-14",
+      replies: [],
+      is_delete: false,
+    };
+
+    // Action & Verification
+    expect(() => new DetailedComment(data)).toThrowError(
+      "DETAILED_COMMENT.INVALID_DATA_TYPE"
+    );
+
+    // Check console log
+    expect(console.log).toHaveBeenCalledWith("DetailedComment_id: true");
+  });
+  it("should throw an error when id is missing", () => {
+    const data = {
+      username: "user123",
+      content: "This is a comment",
+      date: "2024-11-14",
+      replies: [],
+      is_delete: false,
+    };
+
+    expect(() => new DetailedComment(data)).toThrowError(
+      "DETAILED_COMMENT.MISSING_REQUIRED_FIELDS"
+    );
+  });
 });
