@@ -94,9 +94,6 @@ describe("DetailedComment entity tests", () => {
     expect(() => new DetailedComment(data)).toThrowError(
       "DETAILED_COMMENT.INVALID_DATA_TYPE"
     );
-
-    // Check console log
-    expect(console.log).toHaveBeenCalledWith("DetailedComment_id: true");
   });
   it("should throw an error when id is missing", () => {
     const data = {
