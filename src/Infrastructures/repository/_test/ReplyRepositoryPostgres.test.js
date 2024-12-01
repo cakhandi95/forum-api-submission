@@ -366,16 +366,8 @@ describe("ReplyRepositoryPostgres", () => {
         commentId
       );
 
-      // Normalize received data
-      const normalizedReplies = replies.map((reply) => ({
-        id: reply.id,
-        username: reply.username,
-        content: reply.content,
-        date: reply.date.toISOString().split("T")[0], // Format date to string
-      }));
-
       // Assert
-      expect(normalizedReplies).toHaveLength(2);
+      expect(replies).toHaveLength(2);
 
       // Assert detail for first reply
       expect(replies[0]).toStrictEqual({
@@ -393,14 +385,6 @@ describe("ReplyRepositoryPostgres", () => {
         date: new Date("2023-09-10T17:00:00.000Z"), // Correct date format
         username: "foobar",
         is_delete: false,
-      });
-
-      // Assert detail for normalized second reply
-      expect(normalizedReplies[1]).toStrictEqual({
-        id: "reply-new",
-        username: "foobar",
-        content: "A new reply",
-        date: "2023-09-10", // Normalized date
       });
     });
   });
