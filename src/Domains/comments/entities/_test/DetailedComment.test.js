@@ -39,7 +39,7 @@ describe("DetailedComment entity tests", () => {
       id: "comment-1",
       username: "CakHandi95",
       content: "This is a comment",
-      date: "2024-11-14",
+      date: "2024-11-14T00:00:00.000Z",
       replies: [],
       likeCount: 10,
       is_delete: false,

@@ -52,6 +52,9 @@ DomainErrorTranslator._directories = {
   "CREATED_REPLY.INVALID_DATA_TYPE": new InvariantError(
     "balasan harus berupa string"
   ),
+  "DETAILED_COMMENT.MISSING_REQUIRED_FIELDS": new InvariantError(
+    "tidak dapat membuat detail komentar baru karena properti yang dibutuhkan tidak ada"
+  ),
 };
 
 module.exports = DomainErrorTranslator;

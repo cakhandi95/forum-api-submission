@@ -268,7 +268,7 @@ describe("ReplyRepositoryPostgres", () => {
       await UsersTableTestHelper.addUser({ id: userId, username: "foobar" });
       await UsersTableTestHelper.addUser({
         id: otherUserId,
-        username: "johndoe",
+        username: "dicoding",
       });
       await ThreadsTableTestHelper.createdThread({
         id: threadId,
@@ -308,7 +308,7 @@ describe("ReplyRepositoryPostgres", () => {
       expect(replies).toHaveLength(2);
       expect(replies[0].id).toBe("reply-old"); // older reply first
       expect(replies[1].id).toBe("reply-new");
-      expect(replies[0].username).toBe("johndoe");
+      expect(replies[0].username).toBe("dicoding");
       expect(replies[1].username).toBe("foobar");
       expect(replies[0].content).toBe("An old reply");
       expect(replies[1].content).toBe("A new reply");
@@ -328,7 +328,7 @@ describe("ReplyRepositoryPostgres", () => {
       await UsersTableTestHelper.addUser({ id: userId, username: "foobar" });
       await UsersTableTestHelper.addUser({
         id: otherUserId,
-        username: "johndoe",
+        username: "dicoding",
       });
       await ThreadsTableTestHelper.createdThread({
         id: threadId,
@@ -374,7 +374,7 @@ describe("ReplyRepositoryPostgres", () => {
         id: "reply-old",
         content: "An old reply",
         date: new Date("2023-09-09T17:00:00.000Z"), // Correct date format
-        username: "johndoe",
+        username: "dicoding",
         is_delete: false,
       });
 
@@ -400,7 +400,7 @@ describe("ReplyRepositoryPostgres", () => {
       await UsersTableTestHelper.addUser({ id: userId, username: "foobar" });
       await UsersTableTestHelper.addUser({
         id: otherUserId,
-        username: "johndoe",
+        username: "dicoding",
       });
       await ThreadsTableTestHelper.createdThread({
         id: threadId,
@@ -455,7 +455,7 @@ describe("ReplyRepositoryPostgres", () => {
       expect(replies).toHaveLength(2);
       expect(replies[0].id).toBe("reply-old"); // older reply first
       expect(replies[1].id).toBe("reply-new");
-      expect(replies[0].username).toBe("johndoe");
+      expect(replies[0].username).toBe("dicoding");
       expect(replies[1].username).toBe("foobar");
       expect(replies[0].content).toBe("An old reply");
       expect(replies[1].content).toBe("A new reply");

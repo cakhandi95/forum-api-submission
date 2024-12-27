@@ -20,7 +20,7 @@ describe("GetThreadDetailUseCase", () => {
     const mockComments = [
       {
         id: "comment-1",
-        username: "johndoe",
+        username: "dicoding",
         date: "2023-09-07T00:00:00.000Z",
         content: "a comment",
         is_delete: false,
@@ -40,9 +40,9 @@ describe("GetThreadDetailUseCase", () => {
         content: "a reply",
         date: "2023-09-08T00:00:00.000Z",
         comment: "comment-1",
-        owner: "johndoe",
+        owner: "dicoding",
         is_delete: false,
-        username: "johndoe",
+        username: "dicoding",
       },
       {
         id: "reply-2",
@@ -101,13 +101,13 @@ describe("GetThreadDetailUseCase", () => {
         comments: [
           new DetailedComment({
             id: "comment-1",
-            username: "johndoe",
+            username: "dicoding",
             date: "2023-09-07T00:00:00.000Z",
             content: "a comment",
             replies: [
               new DetailedReply({
                 id: "reply-1",
-                username: "johndoe",
+                username: "dicoding",
                 content: "a reply",
                 date: "2023-09-08T00:00:00.000Z",
               }),

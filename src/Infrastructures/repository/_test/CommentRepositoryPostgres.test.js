@@ -239,7 +239,7 @@ describe("CommentRepositoryPostgres", () => {
       await UsersTableTestHelper.addUser({ id: userId, username: "foobar" });
       await UsersTableTestHelper.addUser({
         id: otherUserId,
-        username: "johndoe",
+        username: "dicoding",
       });
       await ThreadsTableTestHelper.createdThread({
         id: threadId,
@@ -272,7 +272,7 @@ describe("CommentRepositoryPostgres", () => {
       expect(comments).toHaveLength(2);
       expect(comments[0].id).toBe("comment-old"); // older comment first
       expect(comments[1].id).toBe("comment-new");
-      expect(comments[0].username).toBe("johndoe");
+      expect(comments[0].username).toBe("dicoding");
       expect(comments[1].username).toBe("foobar");
       expect(comments[0].content).toBe("An old comment");
       expect(comments[1].content).toBe("A new comment");
