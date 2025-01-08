@@ -71,13 +71,62 @@ describe("GetThreadDetailUseCase", () => {
 
     /** mocking needed function */
     mockThreadRepository.fetchThreadById = jest.fn(() =>
-      Promise.resolve(mockThreadDetail)
+      Promise.resolve({
+        id: "thread-123",
+        title: "A thread",
+        body: "A long thread",
+        date: "2023-09-07T00:00:00.000Z",
+        username: "foobar",
+      })
     );
     mockCommentRepository.fetchCommentsByThread = jest.fn(() =>
-      Promise.resolve(mockComments)
+      Promise.resolve([
+        {
+          id: "comment-1",
+          username: "dicoding",
+          date: "2023-09-07T00:00:00.000Z",
+          content: "a comment",
+          is_delete: false,
+        },
+        {
+          id: "comment-2",
+          username: "foobar",
+          date: "2023-09-08T00:00:00.000Z",
+          content: "a deleted comment",
+          is_delete: true,
+        },
+      ])
     );
     mockReplyRepository.retrieveRepliesByThreadId = jest.fn(() =>
-      Promise.resolve(mockReplies)
+      Promise.resolve([
+        {
+          id: "reply-1",
+          content: "a reply",
+          date: "2023-09-08T00:00:00.000Z",
+          comment: "comment-1",
+          owner: "dicoding",
+          is_delete: false,
+          username: "dicoding",
+        },
+        {
+          id: "reply-2",
+          content: "a deleted reply",
+          date: "2023-09-09T00:00:00.000Z",
+          comment: "comment-1",
+          owner: "foobar",
+          is_delete: true,
+          username: "foobar",
+        },
+        {
+          id: "reply-3",
+          content: "a reply",
+          date: "2023-09-09T00:00:00.000Z",
+          comment: "comment-2",
+          owner: "foobar",
+          is_delete: false,
+          username: "foobar",
+        },
+      ])
     );
 
     /** creating use case instance */
