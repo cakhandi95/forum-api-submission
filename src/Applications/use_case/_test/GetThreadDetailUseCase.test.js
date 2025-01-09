@@ -105,7 +105,6 @@ describe("GetThreadDetailUseCase", () => {
           date: "2023-09-08T00:00:00.000Z",
           comment: "comment-1",
           owner: "dicoding",
-          is_delete: false,
           username: "dicoding",
         },
         {
@@ -114,7 +113,6 @@ describe("GetThreadDetailUseCase", () => {
           date: "2023-09-09T00:00:00.000Z",
           comment: "comment-1",
           owner: "foobar",
-          is_delete: true,
           username: "foobar",
         },
         {
@@ -123,7 +121,6 @@ describe("GetThreadDetailUseCase", () => {
           date: "2023-09-09T00:00:00.000Z",
           comment: "comment-2",
           owner: "foobar",
-          is_delete: false,
           username: "foobar",
         },
       ])
